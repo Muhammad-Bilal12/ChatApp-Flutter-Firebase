@@ -29,7 +29,7 @@ class InputTextFormFeild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: const EdgeInsets.only(bottom: 4.0),
       child: TextFormField(
         controller: controller,
         onFieldSubmitted: onFeildSubmittedValue,
