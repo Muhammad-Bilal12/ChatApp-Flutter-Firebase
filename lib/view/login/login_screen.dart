@@ -3,6 +3,7 @@ import 'package:tech_media/utils/routes/route_name.dart';
 
 import '../../res/components/input_text_form_feild.dart';
 import '../../res/components/round_button.dart';
+import '../../utils/utils.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -71,7 +72,11 @@ class _LoginViewState extends State<LoginView> {
                       InputTextFormFeild(
                         controller: _emailcontroller,
                         focusNode: emailFocusNode,
-                        onFeildSubmittedValue: (value) {},
+                        onFeildSubmittedValue: (value) {
+                          Utils.changeFocusNode(context,
+                              currentNode: emailFocusNode,
+                              nextNode: passwordFocusNode);
+                        },
                         ononValidator: (val) {
                           return val.isEmpty ? "Enter Email" : null;
                         },
