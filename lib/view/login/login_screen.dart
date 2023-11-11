@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tech_media/utils/routes/route_name.dart';
+import 'package:tech_media/view_model/login/login_controller.dart';
 
 import '../../res/components/input_text_form_feild.dart';
 import '../../res/components/round_button.dart';
@@ -108,9 +110,23 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
                 const SizedBox(height: 40),
-                RoundButton(
-                  title: "Login",
-                  onPress: () {},
+                ChangeNotifierProvider(
+                  create: (context) => LoginController(),
+                  child: Consumer<LoginController>(
+                    builder: (context, provider, child) {
+                      return RoundButton(
+                        title: "Login",
+                        loading: provider.loading,
+                        onPress: () {
+                          if (formKey.currentState!.validate()) {
+                            provider.login(context,
+                                email: _emailcontroller.text,
+                                password: passwordcontroller.text);
+                          }
+                        },
+                      );
+                    },
+                  ),
                 ),
                 SizedBox(height: height * 0.01),
                 GestureDetector(
