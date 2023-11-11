@@ -9,6 +9,8 @@ class AppColors {
 
   static const Color primaryIconColor = Color(0xff242424);
 
+  static const Color primaryButtonColor = Color(0xff242424);
+
   static const Color successColor = Color(0xff04cd62);
 
   static const Color iconBackgroundColor = Color(0xffdfdfe1);
