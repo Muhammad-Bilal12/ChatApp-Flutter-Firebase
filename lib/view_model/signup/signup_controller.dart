@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:tech_media/utils/routes/route_name.dart';
 
 import '../../utils/utils.dart';
+import '../services/session_manager.dart';
 
 class SignupController with ChangeNotifier {
 // to show loading bar
@@ -43,7 +44,11 @@ class SignupController with ChangeNotifier {
       auth
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) {
+        // store user id
+        SessionController().userId = value.user!.uid.toString();
+
         // to add user data on database
+
         ref.child(value.user!.uid.toString()).set({
           'uid': value.user!.uid.toString(),
           'email': value.user!.email.toString(),

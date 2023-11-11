@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:tech_media/utils/routes/route_name.dart';
 import 'package:tech_media/utils/utils.dart';
 
+import '../services/session_manager.dart';
+
 class LoginController with ChangeNotifier {
   bool _loading = false;
 
@@ -30,6 +32,7 @@ class LoginController with ChangeNotifier {
       auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) {
+        SessionController().userId = value.user!.uid.toString();
         setLoading(false);
         Utils.showToastMsg(message: "Login Successfully!");
         Navigator.of(context).pushNamed(RouteName.dashboardView);
