@@ -87,6 +87,7 @@ class _LoginViewState extends State<LoginView> {
                       ),
                       SizedBox(height: height * 0.01),
                       InputTextFormFeild(
+                        obsecureText: true,
                         controller: passwordcontroller,
                         focusNode: passwordFocusNode,
                         onFeildSubmittedValue: (value) {},
