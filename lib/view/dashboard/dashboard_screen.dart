@@ -4,6 +4,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:tech_media/res/color.dart';
 import 'package:tech_media/utils/routes/route_name.dart';
 import 'package:tech_media/view/dashboard/profile/profile_screen.dart';
+import 'package:tech_media/view/dashboard/users/user_list_screen.dart';
 import 'package:tech_media/view_model/services/session_manager.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -21,7 +22,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       Text("Home"),
       Text("Add"),
       Text("Chat"),
-      Text("Message"),
+      UserListScreen(),
       ProfileScreen(),
     ];
   }
