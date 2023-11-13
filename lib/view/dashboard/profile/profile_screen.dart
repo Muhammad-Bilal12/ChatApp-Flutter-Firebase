@@ -126,22 +126,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ],
                             ),
                             const SizedBox(height: 40),
-                            ReuseableRow(
-                              title: "Username",
-                              value: data['username'],
-                              iconData: Icons.person_outline,
+                            GestureDetector(
+                              onTap: () {
+                                provider.showUserNameDialog(
+                                    context, data['username']);
+                              },
+                              child: ReuseableRow(
+                                title: "Username",
+                                value: data['username'],
+                                iconData: Icons.person_outline,
+                              ),
                             ),
                             ReuseableRow(
                               title: "Email",
                               value: data['email'],
                               iconData: Icons.email_outlined,
                             ),
-                            ReuseableRow(
-                              title: "Phone Number",
-                              value: data['phone'] == ""
-                                  ? "xxxx-xxxx-xxx"
-                                  : data['phone'],
-                              iconData: Icons.phone,
+                            GestureDetector(
+                              onTap: () {
+                                provider.showPhoneDialog(
+                                    context, data['phone']);
+                              },
+                              child: ReuseableRow(
+                                title: "Phone Number",
+                                value: data['phone'] == ""
+                                    ? "xxxx-xxxx-xxx"
+                                    : data['phone'],
+                                iconData: Icons.phone,
+                              ),
                             ),
                           ],
                         );

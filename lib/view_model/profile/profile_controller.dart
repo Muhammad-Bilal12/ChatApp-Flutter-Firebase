@@ -7,10 +7,21 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tech_media/res/color.dart';
 
 import 'package:firebase_database/firebase_database.dart';
+import 'package:tech_media/res/components/input_text_form_feild.dart';
 import 'package:tech_media/utils/utils.dart';
 import 'package:tech_media/view_model/services/session_manager.dart';
 
 class ProfileController with ChangeNotifier {
+// TextFeild Controller
+
+  final _usernameController = TextEditingController();
+  final _phoneController = TextEditingController();
+
+// Focus Node
+
+  final nameFocusNode = FocusNode();
+  final phoneFocusNode = FocusNode();
+
   bool _loading = false;
 
   bool get loading => _loading;
@@ -119,5 +130,120 @@ class ProfileController with ChangeNotifier {
       Utils.showToastMsg(message: error.toString());
       setLoading(false);
     });
+  }
+
+// Update Username
+  Future<void> showUserNameDialog(BuildContext context, String name) async {
+    _usernameController.text = name;
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Center(child: Text("Update Username")),
+          content: SingleChildScrollView(
+            child: Column(
+              children: [
+                InputTextFormFeild(
+                    controller: _usernameController,
+                    focusNode: nameFocusNode,
+                    onFeildSubmittedValue: (val) {},
+                    ononValidator: (val) {},
+                    keyBoardType: TextInputType.text,
+                    hint: "Enter Username"),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  "Cancel",
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelLarge!
+                      .copyWith(color: AppColors.alertColor),
+                )),
+            TextButton(
+                onPressed: () {
+                  print("tap");
+                  dataRef.child(SessionController().userId.toString()).update({
+                    'username': _usernameController.text.toString()
+                  }).then((value) {
+                    Navigator.pop(context);
+                  }).onError((error, stackTrace) {
+                    Utils.showToastMsg(message: error.toString());
+                  });
+                },
+                child: Text(
+                  "Ok",
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelLarge!
+                      .copyWith(color: AppColors.primaryTextTextColor),
+                )),
+          ],
+        );
+      },
+    );
+  }
+
+// Update Phone Number
+  Future<void> showPhoneDialog(BuildContext context, String number) async {
+    _phoneController.text = number;
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Center(child: Text("Update Phone Number")),
+          content: SingleChildScrollView(
+            child: Column(
+              children: [
+                InputTextFormFeild(
+                    controller: _phoneController,
+                    focusNode: phoneFocusNode,
+                    onFeildSubmittedValue: (val) {},
+                    ononValidator: (val) {},
+                    keyBoardType: TextInputType.phone,
+                    hint: "Enter Phone Number"),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  "Cancel",
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelLarge!
+                      .copyWith(color: AppColors.alertColor),
+                )),
+            TextButton(
+                onPressed: () {
+                  print("tap");
+                  dataRef
+                      .child(SessionController().userId.toString())
+                      .update({'phone': _phoneController.text.toString()}).then(
+                          (value) {
+                    Navigator.pop(context);
+                  }).onError((error, stackTrace) {
+                    Utils.showToastMsg(message: error.toString());
+                  });
+                },
+                child: Text(
+                  "Ok",
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelLarge!
+                      .copyWith(color: AppColors.primaryTextTextColor),
+                )),
+          ],
+        );
+      },
+    );
   }
 }

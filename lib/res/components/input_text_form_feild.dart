@@ -41,6 +41,7 @@ class InputTextFormFeild extends StatelessWidget {
               fontSize: 19,
               height: 0.0,
             ),
+        cursorColor: AppColors.primaryTextTextColor,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(8),
           hintText: hint,
