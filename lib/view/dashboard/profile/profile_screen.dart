@@ -4,6 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tech_media/res/color.dart';
+import 'package:tech_media/res/components/round_button.dart';
 import 'package:tech_media/view_model/profile/profile_controller.dart';
 import 'package:tech_media/view_model/services/session_manager.dart';
 
@@ -19,6 +20,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: ChangeNotifierProvider(
         create: (context) => ProfileController(),
         child: Consumer<ProfileController>(
@@ -155,6 +157,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 iconData: Icons.phone,
                               ),
                             ),
+                            const SizedBox(height: 40),
+                            RoundButton(
+                                title: "Logout",
+                                onPress: () {
+                                  provider.logout(context);
+                                }),
                           ],
                         );
                       } else {

@@ -1,15 +1,20 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:tech_media/res/color.dart';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:tech_media/res/components/input_text_form_feild.dart';
 import 'package:tech_media/utils/utils.dart';
+import 'package:tech_media/view/login/login_screen.dart';
 import 'package:tech_media/view_model/services/session_manager.dart';
+
+import '../../utils/routes/route_name.dart';
 
 class ProfileController with ChangeNotifier {
 // TextFeild Controller
@@ -245,5 +250,26 @@ class ProfileController with ChangeNotifier {
         );
       },
     );
+  }
+
+// Logout User
+  void logout(BuildContext context) {
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    auth.signOut().then((value) {
+      SessionController().userId = '';
+
+      // PersistentNavBarNavigator.pushNewScreen(
+      //   context,
+      //   screen: LoginView(),
+      //   withNavBar: false, // OPTIONAL VALUE. True by default.
+      //   pageTransitionAnimation: PageTransitionAnimation.fade,
+      // );
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) {
+          return LoginView();
+        },
+      ));
+    });
   }
 }
